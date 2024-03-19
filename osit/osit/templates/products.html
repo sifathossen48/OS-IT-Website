@@ -1,0 +1,36 @@
+{% extends 'base3.html' %}
+
+{% block title %}
+  {{ solution.name }} - {{ block.super }}
+{% endblock %}
+
+{% block breadcrumb %}
+  <li class="breadcrumb-item"><a href="{% url 'solution' %}">Solution & Products</a></li>
+  <li class="breadcrumb-item active">{{ solution.name }}</li>
+{% endblock %}
+
+{% block content %}
+
+<div class="mb-4">
+    <a href="{% url 'new_product' solution.pk %}" class="btn btn-primary">New Product</a>
+</div>
+
+<table class="table">
+    <thead class="thead-inverse">
+      <tr>
+        <th>Products</th>
+      </tr>
+    </thead>
+    <tbody>
+
+      {% for product in solution.product.all %}
+      
+        <tr>
+          <td><a href="{% url 'specific_product' pk=solution.pk product_pk=product.pk %}">{{ product.name }}</a></td>
+        </tr>
+
+      {% endfor %}
+      
+    </tbody>
+  </table>
+{% endblock %}

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<body>
+{% block body %}  <!-- HERE -->
+<!-- Navbar and Menu Container -->
+<div class="nav-menu-container">
+    <div class="navbar">
+    <!-- Navbar -->
+    
+        <a href="{% url 'home' %}">
+            <!-- Logo image -->
+            <img src="media/images/logo.png" alt="OSIT Logo"  class="logo">
+        </a>
+    
+
+
+<!-- Menu -->
+<menu>
+        <a href="{% url 'ourteam' %}" class="hyperlink" >Our Team</a>
+        <a href="{% url 'career' %}" class="hyperlink" >Career</a>
+        <a href="{% url 'clients' %}" class="hyperlink" >Clients</a>
+        <a href="{% url 'solution' %}" class="hyperlink" >Solution</a>
+        <a href="{% url 'newsroom' %}" class="hyperlink" >Newsroom</a>
+        <a href="{% url 'ouroffice' %}" class="hyperlink" >Our Office</a>
+        <a href="{% url 'contact' %}" class="hyperlink" >Contact Us</a>
+</menu>
+
+    </div>
+
+</div>
+
+{% endblock body %}  <!-- AND HERE -->
+
+</body>
+</html>

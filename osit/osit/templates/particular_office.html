@@ -1,0 +1,32 @@
+{% extends 'base2.html' %}
+
+{% load static %}
+
+{% block title %}{{ ouroffice.name }}{% endblock %}
+
+{% block breadcrumb %}
+  <li class="breadcrumb-item"><a href="{% url 'ouroffice' %}">Our Office</a></li>
+  
+  <li class="breadcrumb-item active">{{ ouroffice.name }}</li>
+{% endblock %}
+
+
+{% block content %}
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-8 offset-md-2">
+      <h2>{{ ouroffice.name }}</h2>
+      
+      
+      <p>{{ ouroffice.details|safe }}</p>
+
+      <hr>
+
+      <p>
+        <a href="{% url 'edit_office' ouroffice.pk %}" class="btn btn-primary">Edit</a> &nbsp &nbsp
+
+    </div>
+   </div>
+</div>
+{% endblock %}                

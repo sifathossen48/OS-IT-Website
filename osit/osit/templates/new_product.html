@@ -1,0 +1,16 @@
+{% extends 'base3.html' %}
+
+{% block title %}Add a New Product{% endblock %}
+
+{% block breadcrumb %}
+  <li class="breadcrumb-item"><a href="{% url 'solution' %}">Solution & Products</a></li>
+  <li class="breadcrumb-item active">New Product</li>
+{% endblock %}
+
+{% block content %}
+<form method="post" enctype="multipart/form-data" novalidate>
+  {% csrf_token %}
+  {% include 'includes/form.html' %}
+  <button type="submit" class="btn btn-success">Post</button>
+</form>
+{% endblock %}

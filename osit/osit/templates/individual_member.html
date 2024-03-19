@@ -1,0 +1,77 @@
+{% extends 'base1.html' %}
+
+{% load static %}
+
+{% block title %}{{ teammember.name }}{% endblock %}
+
+{% block breadcrumb %}
+  <li class="breadcrumb-item"><a href="{% url 'ourteam' %}">Our Team</a></li>
+  <li class="breadcrumb-item"><a href="{% url 'ourteam_teammember' pk=teammember.ourteam.pk %}">{{ teammember.ourteam.name }}</a></li>
+  <li class="breadcrumb-item active">{{ teammember.name }}</li>
+{% endblock %}
+
+
+{% block content %}
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-8 offset-md-2">
+      <h2>{{ teammember.name }}</h2>
+      
+      
+      <p>{{ teammember.details|safe }}</p>
+
+      {% if teammember.image %}
+        <img src="{{ teammember.image.url }}" alt="{{ teammember.name }}" class="img-fluid">
+      {% endif %}
+
+      <hr>
+
+      <p>
+        <a href="{% url 'edit_member' teammember.ourteam.pk teammember.pk %}" class="btn btn-primary">Edit</a> &nbsp &nbsp
+        <button class="btn btn-danger" data-teammember-id="{{ teammember.pk }}" data-ourteam-pk="{{ teammember.ourteam.pk }}" onclick="confirmDelete(this)">Delete</button>
+
+      </p>
+
+      <script>
+        function confirmDelete(button) {
+          var teammemberId = button.getAttribute('data-teammember-id');
+          var ourteamPk = button.getAttribute('data-ourteam-pk');
+        
+          var confirmation = confirm("Are you sure you want to delete this member?");
+        
+          if (confirmation) {
+            // Get CSRF token from the cookie (make sure to include the CSRF token in your project)
+            var csrf_token = document.cookie.match(/csrftoken=([^;]+)/)[1];
+      
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', '/ourteam/teammember/' + ourteamPk + '/teammember/' + teammemberId + '/delete/', true);
+            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+            xhr.setRequestHeader('X-CSRFToken', csrf_token);
+      
+            xhr.onload = function () {
+              if (xhr.status === 200) {
+                var response = JSON.parse(xhr.responseText);
+                if (response.message === 'Member deleted successfully') {
+                  // Success, the member is deleted from the database
+                  // Redirect to the members.html page where all existing members are listed
+                  window.location.href = '/ourteam/' + ourteamPk + '/teammember/';
+                } else {
+                  console.error('Error deleting member:', response.message);
+                }
+              } else {
+                console.error('Error deleting member. Status:', xhr.status);
+              }
+            };
+      
+            xhr.send();
+          }
+        }
+      </script>
+      
+      
+      
+    </div>
+  </div>
+</div>
+{% endblock %}                

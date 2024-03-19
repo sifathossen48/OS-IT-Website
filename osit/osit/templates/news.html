@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block title %}
+  Newsroom
+{% endblock %}
+
+{% block breadcrumb %}
+  <li class="breadcrumb-item"><a href="{% url 'newsroom' %}">Newsroom</a></li>
+{% endblock %}
+
+{% block content %}
+  <div class="mb-4">
+    <a href="{% url 'new_news' %}" class="btn btn-primary">New News</a>
+  </div>
+
+<table class="table">
+  <thead class="thead-inverse">
+    <tr>
+      <th>News</th>
+      <th>Starter</th>
+      <th>Views</th>
+      <th>Last Update</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for news in news %}
+      <tr>
+        <td><a href="{% url 'particular_news' pk=news.pk %}">{{ news.title }}</a></td>
+        <td>{{ news.starter.username }}</td>
+        <td>{{ news.views }}</td>
+        <td>{{ news.last_updated }}</td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

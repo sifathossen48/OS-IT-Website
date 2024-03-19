@@ -1,0 +1,18 @@
+{% extends 'base2.html' %}
+
+{% block title %}Edit Office{% endblock %}
+
+{% block breadcrumb %}
+  <li class="breadcrumb-item"><a href="{% url 'ouroffice' %}">Our Office</a></li> 
+  <li class="breadcrumb-item active">{{ ouroffice.name }}</li>
+  <li class="breadcrumb-item active">Edit Office</li>
+{% endblock %}
+
+{% block content %}
+  <form method="post" class="mb-4" enctype="multipart/form-data" novalidate>
+    {% csrf_token %}
+    {% include 'includes/form.html' %}
+    <button type="submit" class="btn btn-success">Save changes</button>
+    <a href="{% url 'ouroffice' %}" class="btn btn-outline-secondary" role="button">Cancel</a>
+  </form>
+{% endblock %}

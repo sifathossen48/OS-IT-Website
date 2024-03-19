@@ -1,0 +1,32 @@
+{% extends 'base2.html' %}
+
+{% block breadcrumb %}
+  <li class="breadcrumb-item active">Our Office</li>
+{% endblock %}
+
+{% block content %}
+
+<div class="mb-4">
+  <a href="{% url 'new_office' %}" class="btn btn-primary">New Office</a>
+</div>
+
+      <table class="table">
+        <thead class="thead-inverse">
+          <tr>
+            <th>Our Office</th>
+            
+          </tr>
+        </thead>
+        <tbody>
+          {% for ouroffice in ouroffice %}
+            <tr>
+              <td>
+                <a href="{% url 'particular_office' ouroffice.pk %}">{{ ouroffice.name }}</a>
+                
+              </td>
+              
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+{% endblock %}

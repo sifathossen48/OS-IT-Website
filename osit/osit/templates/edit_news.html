@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block title %}Edit post{% endblock %}
+
+{% block breadcrumb %}
+  <li class="breadcrumb-item"><a href="{% url 'newsroom' %}">Newsroom</a></li> 
+  <li class="breadcrumb-item active">{{ news.title }}</li>
+  <li class="breadcrumb-item active">Edit news</li>
+{% endblock %}
+
+{% block content %}
+  <form method="post" class="mb-4" enctype="multipart/form-data" novalidate>
+    {% csrf_token %}
+    {% include 'includes/form.html' %}
+    <button type="submit" class="btn btn-success">Save changes</button>
+    <a href="{% url 'particular_news' pk=news.pk %}" class="btn btn-outline-secondary" role="button">Cancel</a>
+  </form>
+{% endblock %}

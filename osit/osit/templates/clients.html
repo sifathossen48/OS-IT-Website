@@ -1,0 +1,94 @@
+{% extends 'base4.html' %}
+
+{% block title %}
+  Clients & Partners
+{% endblock %}
+
+{% block breadcrumb %}
+  <li class="breadcrumb-item"><a href="{% url 'clients' %}">Clients & Partners</a></li>
+{% endblock %}
+
+{% block content %}
+
+<div class="mb-4">
+  <a href="{% url 'new_client' %}" class="btn btn-primary">New Client</a> &nbsp &nbsp &nbsp
+
+  <button id="delete-selected" class="btn btn-danger">Delete Client</button>
+</div>
+
+<br> <br>
+<div class="row">
+
+  {% for clients in clients %}
+
+  
+    
+    
+      {% if clients.image %}
+
+        <div class="card">
+
+        
+
+        <img src="{{ clients.image.url }}" alt="Client Image" class="partner-images">
+
+        <input type="checkbox" class="client-checkbox" data-pk="{{ clients.pk }}">
+
+        </div>
+
+  
+
+
+      {% endif %}
+    
+  
+       
+  {% endfor %}  
+
+</div>
+
+<script>
+  document.getElementById('delete-selected').addEventListener('click', function() {
+    var selectedClients = document.querySelectorAll('.client-checkbox:checked');
+    if (selectedClients.length === 0) {
+      alert("Please select at least one client to delete.");
+      return;
+    }
+    if (confirm("Are you sure you want to delete the selected clients?")) {
+      var formData = new FormData();
+      selectedClients.forEach(function(checkbox) {
+        formData.append('selected_clients[]', checkbox.dataset.pk); // Corrected: 'selected_clients[]' should match the key in the Django view
+      });
+      formData.append('csrfmiddlewaretoken', '{{ csrf_token }}');
+      fetch("{% url 'delete_client' %}", {
+        method: 'POST',
+        body: formData
+      })
+      .then(function(response) {
+        if (response.ok) {
+          return response.json(); // Parse the JSON response
+        } else {
+          throw new Error('Network response was not ok.');
+        }
+      })
+      .then(function(data) {
+        if (data.success) {
+          location.reload(); // Reload the page on successful deletion
+        } else {
+          alert("An error occurred while deleting clients.");
+        }
+      })
+      .catch(function(error) {
+        console.error('Error:', error);
+      });
+    } else { // If user clicks Cancel, restore original states
+      selectedClients.forEach(function(checkbox) {
+        checkbox.checked = false;
+      });
+    }
+  });
+</script>
+
+
+
+{% endblock %}  

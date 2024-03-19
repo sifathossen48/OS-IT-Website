@@ -1,0 +1,16 @@
+{% extends 'base4.html' %}
+
+{% block title %}Add a New Client{% endblock %}
+
+{% block breadcrumb %}
+  <li class="breadcrumb-item"><a href="{% url 'clients' %}">Clients & Partners</a></li>
+  <li class="breadcrumb-item active">New Client</li>
+{% endblock %}
+
+{% block content %}
+<form method="post" enctype="multipart/form-data" novalidate>
+  {% csrf_token %}
+  {% include 'includes/form.html' %}
+  <button type="submit" class="btn btn-success">Post</button>
+</form>
+{% endblock %}

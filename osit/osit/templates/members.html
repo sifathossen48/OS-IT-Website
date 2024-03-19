@@ -1,0 +1,36 @@
+{% extends 'base1.html' %}
+
+{% block title %}
+  {{ ourteam.name }} - {{ block.super }}
+{% endblock %}
+
+{% block breadcrumb %}
+  <li class="breadcrumb-item"><a href="{% url 'ourteam' %}">Our Team</a></li>
+  <li class="breadcrumb-item active">{{ ourteam.name }}</li>
+{% endblock %}
+
+{% block content %}
+
+<div class="mb-4">
+    <a href="{% url 'new_member' ourteam.pk %}" class="btn btn-primary">New Member</a>
+</div>
+
+<table class="table">
+    <thead class="thead-inverse">
+      <tr>
+        <th>Members</th>
+      </tr>
+    </thead>
+    <tbody>
+
+      {% for teammember in ourteam.teammember.all %}
+      
+        <tr>
+          <td><a href="{% url 'individual_member' pk=ourteam.pk teammember_pk=teammember.pk %}">{{ teammember.name }}</a></td>
+        </tr>
+
+      {% endfor %}
+      
+    </tbody>
+  </table>
+{% endblock %}

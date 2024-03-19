@@ -1,0 +1,12 @@
+.navbar-brand {
+    font-family: 'Peralta', cursive;
+  }
+
+.partner-images{
+    width: 100px;
+    height: 50px;
+    margin: auto;
+    display: block;
+    padding-top: 8px;
+}
+
